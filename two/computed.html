@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <p>{{ add }}</p>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      // 计算属性
+      //   只有局部computed属性
+      // 计算属性的优点
+      //   有缓存 如果获取一个相同的计算（computed）属性 那么直接读缓存 不需要重复计算
+      //   计算（computed）属性的 使用场景 如果依赖 data数据 而且需要通过一定的逻辑运算 那么推荐使用 computed属性
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          date: Date.now(),
+          msg: 1,
+        },
+        filters: {
+          unit1(value) {
+            return value + "123";
+          },
+        },
+        directives: {
+          foucs1: {
+            inserted(el) {
+              el.focus();
+            },
+          },
+        },
+        computed: {
+          add() {
+            return this.msg + 1;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

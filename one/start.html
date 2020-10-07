@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- // 插值表达式 -->
+      <!-- 在vue中会在data中查找值 -->
+      <p>{{ msg }}</p>
+      <hr />
+      <!-- // v-text v-html -->
+      <!-- 会将在data中找到的值显示在标签中 -->
+      <h2 v-text="h2"></h2>
+      <h2 v-html="h3"></h2>
+      <hr />
+      <!-- // v-if v-show -->
+      <!-- v-if 是动态创建dom元素比较消耗资源-->
+      <p v-if="isShow">{{ msg }}</p>
+      <!-- v-show 是利用css属性display来控制显示隐藏 -->
+      <p v-show="isShow">{{ msg }}</p>
+      <hr />
+      <!-- // v-else v-else-if -->
+      <p v-if="!isShow">{{ msg }}</p>
+      <p v-else-if="isShow">{{ test }}</p>
+      <p v-else>{{ temp}}</p>
+      <hr />
+      <!-- // v-on -->
+      <!-- 简写@ 修饰符 .prevent .stop 会在methods中查找相应的方法 -->
+      <a v-on:click="change" href="javascript:;"> {{ a }} </a>
+      <!-- // v-on 修饰符 -->
+      <a v-on:click.prevent.stop="change"> {{ a }} </a>
+      <hr />
+      <!-- // v-bind -->
+      <!-- 可以动态绑定属性值 属性值会在data中查找 并应用  -->
+      <a v-bind:href="url">我是被vue控制的连接哦</a>
+      <hr />
+      <!-- // v-for -->
+      <ul>
+        <li v-for=" (item,index) in arr ">{{ item }} ------ {{ index }}</li>
+      </ul>
+      <hr />
+      <ul>
+        <li v-for=" (value,porp) in obj ">{{ porp }} ------ {{ value }}</li>
+      </ul>
+      <hr />
+      <!-- // v-on 修饰符 -->
+      <!-- 不传参 第一个就是 事件e 传参可以使用$event 来传实参 -->
+      <a v-on:click.prevent.stop="desc"> {{ a }} </a>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      // 测试指令
+
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "我是vue内容",
+          h2: "我是h2",
+          h3: "<br/>我是h3",
+          temp: "我是测试内容",
+          test: "test",
+          isShow: true,
+          a: "我是a连接",
+          url: "http://www.baidu.com",
+          arr: ["张飞", "吕布", "貂蝉", "孙尚香"],
+          obj: {
+            name: "zs",
+            age: 16,
+            gender: "男",
+          },
+        },
+        methods: {
+          change() {
+            console.log("你被阻止跳转啦");
+          },
+          desc(e) {
+            console.log(e);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

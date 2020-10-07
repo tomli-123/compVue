@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .cor {
+        color: yellowgreen;
+      }
+      .big {
+        font-size: 32px;
+        /* color: tomato; */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- // v-bind 增强class 增强 style -->
+      <!-- v-bind 可以增强class属性 不会覆盖之前的class 一样的class属性会覆盖
+       用三种可以使用模式
+       1. 直接写对象 里面是 prop是style属性名 value是布尔值
+       2. 写data中的数组 组中是字符串 写入即为使用该增强属性
+       3. 写data中的对象 对象的 prop是style属性名 value是布尔值 
+    -->
+      <p class="cor" v-bind:class="{ big:isShow }">{{ msg }}</p>
+      <hr />
+      <p class="cor" v-bind:class="arr">{{ msg }}</p>
+      <hr />
+      <p class="cor" v-bind:class="obj">{{ msg }}</p>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      // v-model
+      // v-model 对一些特殊表单元素的绑定
+      // 过滤器
+      // 过滤器处理日期
+      // 过滤器参数
+      // 全局过滤器 局部过滤器
+      // 自定义指令
+      // 全局指令 局部指令
+      // 计算机属性
+      // 计算机属性的优点
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "我是什么颜色",
+          isShow: true,
+          arr: ["big"],
+          obj: {
+            big: true,
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

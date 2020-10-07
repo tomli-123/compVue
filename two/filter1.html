@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .cor {
+        color: yellowgreen;
+      }
+      .big {
+        font-size: 32px;
+        /* color: tomato; */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- // 过滤器 -->
+      <ul>
+        <!-- 过滤器的第一个参数永远是 插值表达式的值 -->
+        <li>{{ date | unit }}</li>
+      </ul>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./moment.js"></script>
+    <script>
+      // 过滤器处理日期
+      // 过滤器参数
+      // 全局过滤器 局部过滤器
+      // 自定义指令
+      // 全局指令 局部指令
+      // 计算机属性
+      // 计算机属性的优点
+      Vue.filter("unit", (value) => {
+        return moment(value).format("MMMM Do YYYY, h:mm:ss");
+      });
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          date: Date.now(),
+        },
+        filters: {
+          unit1(value) {
+            return value + "123";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

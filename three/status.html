@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .red1 {
+        color: teal;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <input v-foucs type="text" class="form-control" v-model="key" />
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>编号</th>
+              <th>资产名称</th>
+              <th>价格</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for=" (item,index) in showList ">
+              <td>{{ index }}</td>
+              <td>{{ item.name }}</td>
+              <td v-bind:class="{red1: item.price > 100}">
+                {{ item.price | deal}}
+              </td>
+              <td @click.prevent.stop="del(item.id)">
+                <a href="javascript:;">删除</a>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <td rowspan="1">共计： {{ statistical }}</td>
+            <td colspan="4"></td>
+          </tfoot>
+        </table>
+
+        <!-- 添加资产 -->
+        <form class="form-inline">
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                type="text"
+                v-model.trim="name"
+                class="form-control"
+                placeholder="资产名称"
+              />
+            </div>
+            &nbsp;&nbsp;
+            <div class="input-group">
+              <input
+                type="text"
+                v-model.number.trim="price"
+                class="form-control"
+                placeholder="资产价格"
+              />
+            </div>
+          </div>
+          &nbsp;&nbsp;
+          <button @click.prevent="add" class="btn btn-primary">添加资产</button>
+        </form>
+      </div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      Vue.directive("foucs", {
+        inserted(el) {
+          el.focus();
+        },
+      });
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          list: [
+            { id: 1, name: "外套", price: 99 },
+            { id: 2, name: "裤子", price: 34 },
+            { id: 3, name: "鞋", price: 25.4 },
+            { id: 4, name: "头发", price: 199 },
+          ],
+          key: "",
+          temp: 0,
+          name: "",
+          price: "",
+        },
+        methods: {
+          del(id) {
+            return (this.list = this.list.filter((item) => {
+              return item.id !== id;
+            }));
+          },
+          add() {
+            this.list.unshift({
+              name: this.name,
+              price: this.price,
+              id: Date.now(),
+            });
+            (this.name = ""), (this.price = "");
+          },
+        },
+        filters: {
+          deal(value) {
+            return "¥" + value.toFixed(2);
+          },
+        },
+        computed: {
+          statistical() {
+            this.temp = 0;
+            this.showList.forEach((item) => {
+              this.temp += item.price;
+            });
+            return this.temp;
+          },
+          showList() {
+            return this.list.filter((item) => {
+              return item.name.includes(this.key);
+            });
+          },
+        },
+      });
+      // 目标：
+      // 1. 把表格数据显示出来
+      // 2. 实现删除功能
+      // 3. 标注：如果价格超过100，标红色显示。
+      // 4. 添加功能
+
+      // list: [
+      //     { id: 1, name: '外套', price: 99 },
+      //     { id: 2, name: '裤子', price: 34 },
+      //     { id: 3, name: '鞋', price: 25.4 },
+      //     { id: 4, name: '头发', price: 199 }
+      // ]
+    </script>
+  </body>
+</html>

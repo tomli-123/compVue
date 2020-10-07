@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .red {
+        color: tomato;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <input type="text" v-foucs v-model="key" />
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>编号</th>
+              <th>资产名称</th>
+              <th>价格</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item,index) in showList" :key="item.id">
+              <td>{{index}}</td>
+              <td>{{ item.name }}</td>
+              <td v-bind:class="{red: item.price>100 }">
+                {{ item.price | desc }}
+              </td>
+              <td><a href="javascript:;" @click="del(item.id)">删除</a></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <td>共计：{{ total }}</td>
+          </tfoot>
+        </table>
+
+        <!-- 添加资产 -->
+        <form class="form-inline">
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                type="text"
+                v-model.trim="name"
+                class="form-control"
+                placeholder="资产名称"
+              />
+            </div>
+            &nbsp;&nbsp;
+            <div class="input-group">
+              <input
+                type="text"
+                v-model.number.trim="price"
+                class="form-control"
+                placeholder="资产价格"
+              />
+            </div>
+          </div>
+          &nbsp;&nbsp;
+          <button @click.prevent="add" class="btn btn-primary">添加资产</button>
+        </form>
+      </div>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./axios.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          key: "",
+          list: [
+            { id: 1, name: "外套", price: 99 },
+            { id: 2, name: "裤子", price: 34 },
+            { id: 3, name: "鞋", price: 25.4 },
+            { id: 4, name: "头发", price: 199 },
+          ],
+          name: "",
+          price: "",
+        },
+        methods: {
+          del(id) {
+            this.list = this.list.filter((item) => {
+              return item.id !== id;
+            });
+          },
+          add() {
+            this.list.push({
+              name: this.name,
+              price: this.price,
+              id: Date.now(),
+            });
+            this.name = "";
+            this.price = "";
+          },
+        },
+        filters: {
+          desc(value) {
+            return "¥" + value.toFixed(2);
+          },
+        },
+        directives: {
+          foucs: {
+            inserted(el) {
+              el.focus();
+            },
+          },
+        },
+        computed: {
+          total() {
+            let temp = 0;
+            this.list.forEach((item) => {
+              temp += item.price;
+            });
+            return temp;
+          },
+          showList() {
+            return this.list.filter((item) => {
+              return item.name.includes(this.key);
+            });
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

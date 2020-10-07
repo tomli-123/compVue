@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-focus />
+      <input type="text" v-focus />
+      <input type="text" />
+      <input type="text" v-foucs1 />
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      // 因为directive指令有钩子函数 所以指令名后跟的是对象 对象里面写钩子函数
+      //   一般directive指令 里面做的是dom操作
+      Vue.directive("focus", {
+        inserted(el) {
+          el.focus();
+        },
+      });
+      // 自定义指令
+      // 全局指令 局部指令
+      // 计算机属性
+      // 计算机属性的优点
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          date: Date.now(),
+        },
+        filters: {
+          unit1(value) {
+            return value + "123";
+          },
+        },
+        directives: {
+          foucs1: {
+            inserted(el) {
+              el.focus();
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

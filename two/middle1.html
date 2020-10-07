@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .cor {
+        color: yellowgreen;
+      }
+      .big {
+        font-size: 32px;
+        /* color: tomato; */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- // v-model -->
+      <input type="text" v-model="value" />
+      <p v-text="value"></p>
+      <hr />
+      <!-- // v-model 对一些特殊表单元素的绑定 -->
+      <!-- checkbox 绑定的是 checked的值 -->
+      <input type="checkbox" value="123" v-model="checkbox" />
+      <p>{{ checkbox }}</p>
+      <hr />
+      <!-- select 绑定的是 选中option的value的值 
+        当绑定的data 中的值和option的value相同时 页面刷新就会自动显示这个option -->
+      <select v-model="section">
+        <option value="01">1</option>
+        <option value="02">2</option>
+        <option value="03">3</option>
+      </select>
+      <p>{{ section }}</p>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      // 过滤器
+      // 过滤器处理日期
+      // 过滤器参数
+      // 全局过滤器 局部过滤器
+      // 自定义指令
+      // 全局指令 局部指令
+      // 计算机属性
+      // 计算机属性的优点
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          section: "01",
+          value: "",
+          checkbox: "",
+          msg: "我是什么颜色",
+          isShow: true,
+          arr: ["big"],
+          obj: {
+            big: true,
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

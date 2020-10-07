@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .cor {
+        color: yellowgreen;
+      }
+      .big {
+        font-size: 32px;
+        /* color: tomato; */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- // 过滤器 -->
+      <ul>
+        <!-- 过滤器的第一个参数永远是 插值表达式的值 -->
+        <li v-for="item in arr">{{ item | unit1(1) }}</li>
+      </ul>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      // 过滤器处理日期
+      // 过滤器参数
+      // 全局过滤器 局部过滤器
+      // 自定义指令
+      // 全局指令 局部指令
+      // 计算机属性
+      // 计算机属性的优点
+      Vue.filter("unit", (value, num) => {
+        return value + ".." + num;
+      });
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          arr: ["张飞", "吕布", "貂蝉", "刘备"],
+        },
+        filters: {
+          unit1(value) {
+            return value + "123";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
